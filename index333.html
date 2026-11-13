@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arish Medicals | Online Pharmacy</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*{scroll-behavior:smooth}
+body{margin:0;background:#f7f9fa;font-family:Arial,sans-serif;color:#263746}
+.topbar{background:#075d68;color:white;padding:9px;font-size:13px}
+.navbar{background:white;box-shadow:0 2px 10px #0001}
+.navbar-brand{color:#078b83!important;font-size:27px;font-weight:bold}
+.nav-link{font-weight:600;color:#344054!important}
+.search-box{border:1px solid #ddd;border-radius:8px;padding:10px;width:100%}
+.hero{background:linear-gradient(110deg,#d9f4f0,#eaf8ff);padding:65px 20px;border-radius:15px}
+.hero h1{font-size:42px;font-weight:bold;color:#087f8c}
+.hero p{font-size:18px}
+.section{padding:45px 0}
+.heading{font-weight:bold;color:#263746;margin-bottom:25px}
+.page{display:none}
+.page.active{display:block}
+.product-card{border:0;border-radius:12px;overflow:hidden;height:100%;box-shadow:0 3px 12px #0001;transition:.3s}
+.product-card:hover{transform:translateY(-7px);box-shadow:0 8px 20px #0002}
+.product-card img{height:175px;object-fit:cover;width:100%}
+.product-card .card-body{padding:16px}
+.price{color:#07865b;font-size:19px;font-weight:bold}
+.old-price{text-decoration:line-through;color:#999;font-size:13px}
+.discount{background:#e4f7ee;color:#07865b;padding:5px 8px;border-radius:5px;font-size:12px}
+.category{background:white;border-radius:12px;padding:20px 10px;text-align:center;height:100%;box-shadow:0 2px 10px #0001;transition:.3s}
+.category:hover{background:#e4f7f5;transform:translateY(-5px)}
+.category i{font-size:32px;color:#078b83;margin-bottom:12px}
+.category h6{font-weight:bold}
+.lab{background:white;padding:20px;border-radius:12px;height:100%;box-shadow:0 2px 10px #0001}
+.lab i{font-size:30px;color:#078b83}
+.promo{background:#fce9ed;padding:35px;border-radius:14px}
+.btn-main{background:#078b83;color:white;border:0;padding:10px 22px;border-radius:7px}
+.btn-main:hover{background:#075b65;color:white}
+.page-btn{background:#078b83;color:white;border:0;padding:12px 25px;border-radius:25px;margin:5px}
+.footer{background:#edf3f4;padding:50px 0 20px}
+.footer h6{font-weight:bold;margin-bottom:20px}
+.footer a{display:block;color:#53616c;text-decoration:none;font-size:14px;margin-bottom:13px}
+.footer a:hover{color:#078b83}
+.footer-bottom{border-top:1px solid #d4dddd;padding-top:20px;margin-top:30px;text-align:center}
+.app-btn{display:inline-block;background:#17202a;color:white;padding:10px 16px;border-radius:8px;margin:5px;text-decoration:none}
+.app-btn:hover{background:#078b83;color:white}
+.whatsapp{position:fixed;right:20px;bottom:20px;background:#25d366;color:white;border-radius:50%;height:55px;width:55px;display:flex;align-items:center;justify-content:center;font-size:28px;z-index:999;text-decoration:none}
+.offer{background:#087f8c;color:white;padding:10px;text-align:center}
+.contact{background:white;padding:25px;border-radius:12px;box-shadow:0 3px 10px #0001}
+table th{background:#087f8c!important;color:white!important}
+@media(max-width:768px){
+.hero h1{font-size:30px}
+.hero{text-align:center}
+.product-card img{height:150px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+<div class="container d-flex justify-content-between flex-wrap">
+<span><i class="fa-solid fa-truck"></i> Fast Home Delivery</span>
+<span>Customer Care: +91 98765 43210</span>
+</div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg sticky-top">
+<div class="container">
+
+<a class="navbar-brand" href="#" onclick="showPage(1)">
+<i class="fa-solid fa-capsules"></i> ARISH MEDICALS
+</a>
+
+<button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
+<span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse" id="nav">
+
+<ul class="navbar-nav ms-auto">
+<li class="nav-item"><a class="nav-link" href="#" onclick="showPage(1)">Home</a></li>
+<li class="nav-item"><a class="nav-link" href="#" onclick="showPage(2)">Shop</a></li>
+<li class="nav-item"><a class="nav-link" href="#" onclick="showPage(3)">Services</a></li>
+<li class="nav-item"><a class="nav-link" href="#" onclick="showPage(3)">Contact</a></li>
+</ul>
+
+<button class="btn btn-outline-success ms-lg-3 mt-2 mt-lg-0" onclick="alert('Login demo')">
+<i class="fa fa-user"></i> Login
+</button>
+
+<button class="btn btn-outline-success ms-2 mt-2 mt-lg-0" onclick="showCart()">
+<i class="fa fa-shopping-cart"></i> Cart (<span id="cartCount">0</span>)
+</button>
+
+</div>
+</div>
+</nav>
+
+<!-- SEARCH BAR -->
+<div class="container mt-3">
+<div class="row g-2">
+<div class="col-md-3">
+<select class="form-select">
+<option>📍 Select Location</option>
+<option>Bangalore</option>
+<option>Chennai</option>
+<option>Kerala</option>
+</select>
+</div>
+<div class="col-md-9">
+<input type="search" id="searchInput" class="search-box"
+placeholder="Search medicines, health products, vitamins and more..."
+oninput="searchProducts()">
+</div>
+</div>
+</div>
+
+<div class="offer mt-3">
+🎉 SPECIAL OFFER: Enjoy exciting deals on healthcare and wellness products!
+</div>
+
+<!-- ================= PAGE 1 ================= -->
+
+<div class="page active" id="page1">
+
+<!-- HERO -->
+<section class="container section">
+<div class="hero" data-aos="zoom-in">
+<div class="row align-items-center">
+<div class="col-md-7">
+<h1>Your Health, Our Priority</h1>
+<h4>Welcome to Arish Medicals</h4>
+<p>Order medicines, healthcare essentials, personal care and wellness products from one place.</p>
+<button class="btn-main" onclick="showPage(2)">Shop Now →</button>
+</div>
+<div class="col-md-5 text-center">
+<img src="https://images.unsplash.com/photo-1576602976047-174e57a47881?w=600"
+class="img-fluid rounded" alt="Pharmacy">
+</div>
+</div>
+</div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="container section">
+<h3 class="heading">Shop By Health Conditions</h3>
+<div class="row g-3">
+
+<div class="col-6 col-md-3">
+<div class="category">
+<i class="fa-solid fa-heart-pulse"></i>
+<h6>Cardiac Care</h6>
+</div>
+</div>
+
+<div class="col-6 col-md-3">
+<div class="category">
+<i class="fa-solid fa-droplet"></i>
+<h6>Diabetes Care</h6>
+</div>
+</div>
+
+<div class="col-6 col-md-3">
+<div class="category">
+<i class="fa-solid fa-person-pregnant"></i>
+<h6>Women's Health</h6>
+</div>
+</div>
+
+<div class="col-6 col-md-3">
+<div class="category">
+<i class="fa-solid fa-baby"></i>
+<h6>Baby Care</h6>
+</div>
+</div>
+
+<div class="col-6 col-md-3">
+<div class="category">
+<i class="fa-solid fa-shield-heart"></i>
+<h6>Immunity</h6>
+</div>
+</div>
+
+<div class="col-6 col-md-3">
+<div class="category">
+<i class="fa-solid fa-leaf"></i>
+<h6>Ayurvedic Care</h6>
+</div>
+</div>
+
+<div class="col-6 col-md-3">
+<div class="category">
+<i class="fa-solid fa-capsules"></i>
+<h6>Vitamins</h6>
+</div>
+</div>
+
+<div class="col-6 col-md-3">
+<div class="category">
+<i class="fa-solid fa-stethoscope"></i>
+<h6>Health Devices</h6>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- VALUE DEALS -->
+<section class="container section">
+<div class="d-flex justify-content-between">
+<h3 class="heading">Value Deals Under ₹200</h3>
+<a href="#" onclick="showPage(2)">View All →</a>
+</div>
+
+<div class="row g-4">
+
+<div class="col-6 col-md-3 product">
+<div class="card product-card">
+<img src="https://images.unsplash.com/photo-1603398938378-e54eab446dde?w=500" alt="First aid kit">
+<div class="card-body">
+<h6>First Aid Kit</h6>
+<p class="price">₹150</p>
+<span class="discount">20% OFF</span>
+<button class="btn-main w-100 mt-3" onclick="addCart('First Aid Kit',150)">ADD</button>
+</div>
+</div>
+</div>
+
+<div class="col-6 col-md-3 product">
+<div class="card product-card">
+<img src="https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?w=500" alt="Personal care">
+<div class="card-body">
+<h6>Personal Care</h6>
+<p class="price">₹120</p>
+<span class="discount">15% OFF</span>
+<button class="btn-main w-100 mt-3" onclick="addCart('Personal Care',120)">ADD</button>
+</div>
+</div>
+</div>
+
+<div class="col-6 col-md-3 product">
+<div class="card product-card">
+<img src="https://images.unsplash.com/photo-1583947215259-38e31be8751f?w=500" alt="Medical gloves">
+<div class="card-body">
+<h6>Medical Gloves</h6>
+<p class="price">₹100</p>
+<span class="discount">10% OFF</span>
+<button class="btn-main w-100 mt-3" onclick="addCart('Medical Gloves',100)">ADD</button>
+</div>
+</div>
+</div>
+
+<div class="col-6 col-md-3 product">
+<div class="card product-card">
+<img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500" alt="Healthcare tablets">
+<div class="card-body">
+<h6>Healthcare Products</h6>
+<p class="price">₹180</p>
+<span class="discount">15% OFF</span>
+<button class="btn-main w-100 mt-3" onclick="addCart('Healthcare Products',180)">ADD</button>
+</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- PROMO -->
+<section class="container section">
+<div class="promo text-center" data-aos="fade-up">
+<h2>Better Health Starts Here!</h2>
+<p>Explore our healthcare products and wellness collections.</p>
+<button class="btn-main" onclick="showPage(2)">Explore Collections</button>
+</div>
+</section>
+
+<!-- HOT SELLERS -->
+<section class="container section">
+<h3 class="heading">Hot Sellers</h3>
+<div class="row g-4">
+
+<div class="col-6 col-md-3 product">
+<div class="card product-card">
+<img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=500">
+<div class="card-body">
+<h6>Skin Moisturizer</h6>
+<p class="price">₹250</p>
+<button class="btn-main w-100" onclick="addCart('Skin Moisturizer',250)">ADD</button>
+</div>
+</div>
+</div>
+
+<div class="col-6 col-md-3 product">
+<div class="card product-card">
+<img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=500">
+<div class="card-body">
+<h6>Medical Equipment</h6>
+<p class="price">₹450</p>
+<button class="btn-main w-100" onclick="addCart('Medical Equipment',450)">ADD</button>
+</div>
+</div>
+</div>
+
+<div class="col-6 col-md-3 product">
+<div class="card product-card">
+<img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=500">
+<div class="card-body">
+<h6>Beauty Care Kit</h6>
+<p class="price">₹350</p>
+<button class="btn-main w-100" onclick="addCart('Beauty Care Kit',350)">ADD</button>
+</div>
+</div>
+</div>
+
+<div class="col-6 col-md-3 product">
+<div class="card product-card">
+<img src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=500">
+<div class="card-body">
+<h6>Health Supplements</h6>
+<p class="price">₹200</p>
+<button class="btn-main w-100" onclick="addCart('Health Supplements',200)">ADD</button>
+</div>
+</div>
+</div>
+
+</div>
+</section>
+
+</div>
+
+<!-- ================= PAGE 2 ================= -->
+
+<div class="page" id="page2">
+
+<section class="container section">
+<div class="hero text-center">
+<h1>Shop All Products</h1>
+<p>Explore our complete healthcare collection</p>
+</div>
+</section>
+
+<section class="container section">
+<h3 class="heading">All Medical Products</h3>
+
+<div class="row g-4">
+
+<div class="col-md-4 col-6 product">
+<div class="card product-card">
+<img src="https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=500">
+<div class="card-body">
+<h5>General Medicines</h5>
+<p>Healthcare product collection.</p>
+<p class="price">₹100</p>
+<button class="btn-main w-100" onclick="addCart('General Medicines',100)">ADD</button>
+</div>
+</div>
+</div>
+
+<div class="col-md-4 col-6 product">
+<div class="card product-card">
+<img src="https://images.unsplash.com/photo-1584634731339-252c581abfc5?w=500">
+<div class="card-body">
+<h5>First Aid Products</h5>
+<p>Bandages and dressings.</p>
+<p class="price">₹80</p>
+<button class="btn-main w-100" onclick="addCart('First Aid Products',80)">ADD</button>
+</div>
+</div>
+</div>
+
+<div class="col-md-4 col-6 product">
+<div class="card product-card">
+<img src="https://images.unsplash.com/photo-1585435557343-3b092031a831?w=500">
+<div class="card-body">
+<h5>Medical Accessories</h5>
+<p>Everyday healthcare accessories.</p>
+<p class="price">₹150</p>
+<button class="btn-main w-100" onclick="addCart('Medical Accessories',150)">ADD</button>
+</div>
+</div>
+</div>
+
+<div class="col-md-4 col-6 product">
+<div class="card product-card">
+<img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=500">
+<div class="card-body">
+<h5>Skin Care</h5>
+<p>Daily skincare products.</p>
+<p class="price">₹250</p>
+<button class="btn-main w-100" onclick="addCart('Skin Care',250)">ADD</button>
+</div>
+</div>
+</div>
+
+<div class="col-md-4 col-6 product">
+<div class="card product-card">
+<img src="https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?w=500">
+<div class="card-body">
+<h5>Personal Care</h5>
+<p>Personal hygiene products.</p>
+<p class="price">₹180</p>
+<button class="btn-main w-100" onclick="addCart('Personal Care',180)">ADD</button>
+</div>
+</div>
+</div>
+
+<div class="col-md-4 col-6 product">
+<div class="card product-card">
+<img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=500">
+<div class="card-body">
+<h5>Health Devices</h5>
+<p>Healthcare monitoring devices.</p>
+<p class="price">₹500</p>
+<button class="btn-main w-100" onclick="addCart('Health Devices',500)">ADD</button>
+</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- LAB TESTS -->
+
+<section class="container section">
+<h3 class="heading">Popular Lab Tests</h3>
+
+<div class="row g-3">
+
+<div class="col-md-3 col-6">
+<div class="lab">
+<i class="fa-solid fa-droplet"></i>
+<h5 class="mt-3">CBC Test</h5>
+<p>Complete Blood Count</p>
+<small>30 Tests Included</small>
+</div>
+</div>
+
+<div class="col-md-3 col-6">
+<div class="lab">
+<i class="fa-solid fa-vial"></i>
+<h5 class="mt-3">HbA1c Test</h5>
+<p>Hemoglobin A1c</p>
+<small>3 Tests Included</small>
+</div>
+</div>
+
+<div class="col-md-3 col-6">
+<div class="lab">
+<i class="fa-solid fa-heart-pulse"></i>
+<h5 class="mt-3">FBS Test</h5>
+<p>Fasting Blood Sugar</p>
+<small>1 Test Included</small>
+</div>
+</div>
+
+<div class="col-md-3 col-6">
+<div class="lab">
+<i class="fa-solid fa-heart"></i>
+<h5 class="mt-3">Lipid Profile</h5>
+<p>Cholesterol Test</p>
+<small>8 Tests Included</small>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- SKINCARE -->
+
+<section class="container section">
+<h3 class="heading">Best of Skincare</h3>
+
+<div class="row g-4">
+
+<div class="col-md-3 col-6 product">
+<div class="card product-card">
+<img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=500">
+<div class="card-body">
+<h6>Moisturizing Lotion</h6>
+<p class="price">₹300</p>
+<button class="btn-main w-100" onclick="addCart('Moisturizing Lotion',300)">ADD</button>
+</div>
+</div>
+</div>
+
+<div class="col-md-3 col-6 product">
+<div class="card product-card">
+<img src="https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?w=500">
+<div class="card-body">
+<h6>Face Wash</h6>
+<p class="price">₹180</p>
+<button class="btn-main w-100" onclick="addCart('Face Wash',180)">ADD</button>
+</div>
+</div>
+</div>
+
+<div class="col-md-3 col-6 product">
+<div class="card product-card">
+<img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=500">
+<div class="card-body">
+<h6>Beauty Cream</h6>
+<p class="price">₹220</p>
+<button class="btn-main w-100" onclick="addCart('Beauty Cream',220)">ADD</button>
+</div>
+</div>
+</div>
+
+<div class="col-md-3 col-6 product">
+<div class="card product-card">
+<img src="https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?w=500">
+<div class="card-body">
+<h6>Body Care</h6>
+<p class="price">₹250</p>
+<button class="btn-main w-100" onclick="addCart('Body Care',250)">ADD</button>
+</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- PRICE TABLE -->
+
+<section class="container section">
+<h3 class="heading">Product Price List</h3>
+
+<div class="table-responsive">
+<table class="table table-bordered table-striped text-center">
+<thead>
+<tr>
+<th>S.No</th>
+<th>Product</th>
+<th>Category</th>
+<th>Price</th>
+<th>Availability</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>First Aid Kit</td><td>First Aid</td><td>₹150</td><td>Available</td></tr>
+<tr><td>2</td><td>Medical Gloves</td><td>Accessories</td><td>₹100</td><td>Available</td></tr>
+<tr><td>3</td><td>Face Wash</td><td>Skincare</td><td>₹180</td><td>Available</td></tr>
+<tr><td>4</td><td>Thermometer</td><td>Equipment</td><td>₹200</td><td>Available</td></tr>
+<tr><td>5</td><td>Moisturizer</td><td>Skincare</td><td>₹300</td><td>Available</td></tr>
+<tr><td>6</td><td>Health Supplements</td><td>Nutrition</td><td>₹200</td><td>Available</td></tr>
+</tbody>
+</table>
+</div>
+<p class="text-muted">All prices are sample prices for this educational project.</p>
+</section>
+
+</div>
+
+<!-- ================= PAGE 3 ================= -->
+
+<div class="page" id="page3">
+
+<section class="container section">
+<div class="hero text-center">
+<h1>Our Healthcare Services</h1>
+<p>Quality care and customer support</p>
+</div>
+</section>
+
+<section class="container section">
+<h2 class="heading text-center">Our Services</h2>
+
+<div class="row g-4">
+
+<div class="col-md-4">
+<div class="category">
+<i class="fa-solid fa-house-medical"></i>
+<h5>Home Delivery</h5>
+<p>Convenient medicine delivery service.</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="category">
+<i class="fa-solid fa-file-medical"></i>
+<h5>Prescription Support</h5>
+<p>Prescription submission and enquiry demo.</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="category">
+<i class="fa-solid fa-flask"></i>
+<h5>Lab Test Information</h5>
+<p>Information about diagnostic tests.</p>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="container section">
+<h2 class="heading">About Arish Medicals</h2>
+<div class="row align-items-center g-4">
+
+<div class="col-md-6">
+<img src="https://images.unsplash.com/photo-1576602976047-174e57a47881?w=800" class="img-fluid rounded" alt="Pharmacy store">
+</div>
+
+<div class="col-md-6">
+<h3>Who We Are</h3>
+<p>Arish Medicals is an online pharmacy website project designed to make healthcare product browsing simple and convenient.</p>
+
+<h5>Our Mission</h5>
+<p>To provide an organized platform for medicines, personal care, healthcare products and wellness information.</p>
+
+<h5>Our Vision</h5>
+<p>To promote better healthcare awareness and customer satisfaction.</p>
+</div>
+
+</div>
+</section>
+
+<section class="container section">
+<h2 class="heading text-center">Contact Us</h2>
+
+<div class="row g-4">
+
+<div class="col-md-6">
+<div class="contact">
+<h4>Store Information</h4>
+<p><i class="fa-solid fa-location-dot"></i> Your Street, Your City, India</p>
+<p><i class="fa-solid fa-phone"></i> +91 98765 43210 (Sample)</p>
+<p><i class="fa-solid fa-envelope"></i> arishmedicals@example.com (Sample)</p>
+<p><i class="fa-solid fa-clock"></i> Monday - Saturday: 9 AM - 9 PM</p>
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="contact">
+<h4>Send Your Enquiry</h4>
+
+<form onsubmit="event.preventDefault();alert('Thank you for contacting Arish Medicals! This is a demo form.');">
+
+<input type="text" class="form-control mb-3" placeholder="Your Name" required>
+
+<input type="email" class="form-control mb-3" placeholder="Your Email" required>
+
+<input type="tel" class="form-control mb-3" placeholder="Phone Number">
+
+<select class="form-select mb-3" required>
+<option value="">Select Enquiry</option>
+<option>Medicine Information</option>
+<option>Product Information</option>
+<option>Lab Test Information</option>
+<option>Other</option>
+</select>
+
+<textarea class="form-control mb-3" rows="4" placeholder="Your Message" required></textarea>
+
+<button class="btn-main w-100">Submit</button>
+
+</form>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="container section">
+<h3 class="heading">Our Working Hours</h3>
+<div class="table-responsive">
+<table class="table table-bordered text-center">
+<thead>
+<tr><th>Day</th><th>Opening</th><th>Closing</th></tr>
+</thead>
+<tbody>
+<tr><td>Monday - Friday</td><td>9 AM</td><td>9 PM</td></tr>
+<tr><td>Saturday</td><td>9 AM</td><td>8 PM</td></tr>
+<tr><td>Sunday</td><td>10 AM</td><td>2 PM</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+</div>
+
+<!-- ================= COMMON FOOTER ================= -->
+
+<footer class="footer">
+<div class="container">
+
+<div class="row g-4">
+
+<div class="col-lg col-md-4 col-6">
+<h6>About Arish Medicals</h6>
+<a href="#" onclick="showPage(3)">About Us</a>
+<a href="#" onclick="showPage(3)">Our Store</a>
+<a href="#" onclick="showPage(3)">Our Mission</a>
+<a href="#" onclick="showPage(3)">FAQs</a>
+<a href="#" onclick="showPage(3)">Contact Us</a>
+</div>
+
+<div class="col-lg col-md-4 col-6">
+<h6>Our Categories</h6>
+<a href="#" onclick="showPage(2)">Diabetes Care</a>
+<a href="#" onclick="showPage(2)">Cardiac Care</a>
+<a href="#" onclick="showPage(2)">Women's Health</a>
+<a href="#" onclick="showPage(2)">Baby Care</a>
+<a href="#" onclick="showPage(2)">Beauty & Skin Care</a>
+<a href="#" onclick="showPage(2)">Ayurvedic Products</a>
+<a href="#" onclick="showPage(2)">Vitamins & Supplements</a>
+<a href="#" onclick="showPage(2)">Health Devices</a>
+</div>
+
+<div class="col-lg col-md-4 col-6">
+<h6>Browse</h6>
+<a href="#" onclick="showPage(2)">View All Medicines</a>
+<a href="#" onclick="showPage(2)">View All OTC</a>
+<a href="#" onclick="showPage(2)">View All Categories</a>
+<a href="#" onclick="showPage(2)">View All Brands</a>
+<a href="#" onclick="showPage(2)">Popular Products</a>
+<a href="#" onclick="showPage(2)">Popular Lab Tests</a>
+<a href="#" onclick="showPage(2)">Skincare Collection</a>
+</div>
+
+<div class="col-lg col-md-4 col-6">
+<h6>Our Services</h6>
+<a href="#" onclick="showPage(3)">Online Doctor Consultation</a>
+<a href="#" onclick="showPage(2)">Book Lab Tests</a>
+<a href="#" onclick="showPage(3)">Health Programs</a>
+<a href="#" onclick="showPage(3)">Weight Management</a>
+<a href="#" onclick="showPage(3)">Customer Support</a>
+<a href="#" onclick="showPage(3)">Pharmacy Information</a>
+</div>
+
+<div class="col-lg col-md-4 col-6">
+<h6>Policies</h6>
+<a href="#" onclick="alert('Demo policy')">Editorial Policy</a>
+<a href="#" onclick="alert('Demo policy')">Privacy Policy</a>
+<a href="#" onclick="alert('Demo policy')">Terms & Conditions</a>
+<a href="#" onclick="alert('Demo policy')">Returns & Refunds</a>
+<a href="#" onclick="alert('Demo policy')">Delivery & Cancellations</a>
+</div>
+
+</div>
+
+<!-- APP DOWNLOAD -->
+
+<div class="row text-center align-items-center mt-5 pt-4 border-top">
+
+<div class="col-md-4">
+<h4>💊 ARISH MEDICALS</h4>
+<p>Your Health, Our Priority</p>
+</div>
+
+<div class="col-md-4">
+<h5>Get Arish Medicals App</h5>
+<a href="#" class="app-btn"><i class="fab fa-google-play"></i> Google Play</a>
+<a href="#" class="app-btn"><i class="fab fa-apple"></i> App Store</a>
+</div>
+
+<div class="col-md-4">
+<h5>Follow Us</h5>
+<a href="#" style="display:inline-block"><i class="fab fa-facebook fa-2x"></i></a>
+<a href="#" style="display:inline-block"><i class="fab fa-instagram fa-2x"></i></a>
+<a href="#" style="display:inline-block"><i class="fab fa-youtube fa-2x"></i></a>
+</div>
+
+</div>
+
+<!-- PREVIOUS NEXT -->
+
+<div class="text-center mt-4">
+<button class="page-btn" onclick="previousPage()">← Previous Page</button>
+<button class="page-btn" onclick="nextPage()">Next Page →</button>
+</div>
+
+<div class="footer-bottom">
+<p>© 2026 Arish Medicals. All Rights Reserved.</p>
+<small>Educational demonstration website. Not a real pharmacy ordering service.</small>
+</div>
+
+</div>
+</footer>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/919876543210" target="_blank" class="whatsapp">
+<i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- BOOTSTRAP -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- AOS -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<script>
+
+let currentPage = 1;
+let totalPages = 3;
+let cart = [];
+
+function showPage(page){
+
+currentPage = page;
+
+document.querySelectorAll(".page").forEach(p=>{
+p.classList.remove("active");
+});
+
+document.getElementById("page"+page).classList.add("active");
+
+window.scrollTo({top:0,behavior:"smooth"});
+
+let menu = document.getElementById("nav");
+let bsMenu = bootstrap.Collapse.getInstance(menu);
+
+if(bsMenu) bsMenu.hide();
+
+AOS.refreshHard();
+
+}
+
+function nextPage(){
+currentPage++;
+if(currentPage > totalPages) currentPage=1;
+showPage(currentPage);
+}
+
+function previousPage(){
+currentPage--;
+if(currentPage < 1) currentPage=totalPages;
+showPage(currentPage);
+}
+
+function addCart(name,price){
+
+cart.push({name:name,price:price});
+
+document.getElementById("cartCount").innerText=cart.length;
+
+alert(name+" added to your cart!");
+
+}
+
+function showCart(){
+
+if(cart.length===0){
+alert("Your shopping cart is empty!");
+return;
+}
+
+let message="YOUR ARISH MEDICALS CART\n\n";
+let total=0;
+
+cart.forEach((item,index)=>{
+message+=(index+1)+". "+item.name+" - ₹"+item.price+"\n";
+total+=item.price;
+});
+
+message+="\nTotal: ₹"+total;
+alert(message);
+
+}
+
+function searchProducts(){
+
+let input=document.getElementById("searchInput").value.toLowerCase();
+
+let products=document.querySelectorAll(".product");
+
+products.forEach(product=>{
+
+let name=product.innerText.toLowerCase();
+
+product.style.display=name.includes(input)?"":"none";
+
+});
+
+}
+
+AOS.init({
+duration:1000,
+once:false
+});
+
+</script>
+
+</body>
+</html>
